@@ -1,0 +1,11 @@
+<configuration>
+   <property>
+     <name>hbase.zookeeper.quorum</name>
+     <value>pilot-hdp-masternode-01,pilot-hdp-masternode-02,pilot-hdp-management</value>
+   </property>
+   <property>
+     <name>zookeeper.znode.parent</name>
+     <value>/hbase-unsecure</value>
+   </property>
+   <!-- test -->
+ </configuration>
