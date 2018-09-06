@@ -226,7 +226,6 @@ odata4sparql:OUEXT
   sparql:update-endpoint <http://localhost:8080/rdf4j-server/repositories/Cust360Demo> ;
   rdfs:label "Cust360Demo Vocabulary Impl"^^xsd:string ;
 .
-
 :NHS
   rdf:type odata4sparql:Prefix ;
   odata4sparql:namespace <http://nexifysolutions.com/Customer360/ods/ref/>  ;
@@ -254,20 +253,17 @@ odata4sparql:OUEXT
   odata4sparql:textSearchType odata4sparql:Halyard_ElasticSearch ;
   rdfs:label "NHS"^^xsd:string ;
 .
-# this describing the NHS repository
 :NHS_Data
   rdf:type rep:Repository ;
   rep:repositoryID "NHS_Data"^^xsd:string ;
   rep:repositoryImpl :NHS_Data_Impl ;
   rdfs:label "NHS Data"^^xsd:string ;
 .
-# physical data model location (repository)
 :NHS_Data_Impl
   rdf:type openrdf:SPARQLRepository ;
   odata4sparql:defaultQueryLimit 100000 ;
   odata4sparql:sparqlProfile odata4sparql:RDF4J ;
   rep:repositoryType openrdf:SPARQLRepository ;
-  # rep:repositoryType openrdf:SailRepository ;
   sparql:query-endpoint <http://localhost:8080/rdf4j-server/repositories/NHSSplit?distinct=true>;
   sparql:update-endpoint <http://localhost  :8080/rdf4j-server/repositories/NHSSplit> ;
   rdfs:label "NHS Data Impl"^^xsd:string ;
@@ -278,14 +274,6 @@ odata4sparql:OUEXT
   rep:repositoryImpl :NHS_Vocabulary_Impl ;
   rdfs:label "NHS Vocabulary"^^xsd:string ;
 .
-# Vocabulary is the data model for the NHS repository
-# :NHS_Vocabulary_Impl
-#   rdf:type openrdf:SPARQLRepository ;
-#   odata4sparql:sparqlProfile odata4sparql:RDF4J ;
-#   rep:repositoryType openrdf:SPARQLRepository ;
-#   sparql:query-endpoint <http://localhost:8080/rdf4j-server/repositories/NHS?distinct=true&infer=false> ;
-#   sparql:update-endpoint <http://localhost:8080/rdf4j-server/repositories/NHS> ;
-#   rdfs:label "NHS Vocabulary Impl"^^xsd:string ;
 :NHS_Vocabulary_Impl
   rdf:type openrdf:SPARQLRepository ;
   odata4sparql:sparqlProfile odata4sparql:RDF4J ;
@@ -294,7 +282,6 @@ odata4sparql:OUEXT
   sparql:update-endpoint <http://localhost:8080/rdf4j-server/repositories/NHSModel> ;
   rdfs:label "NHS Vocabulary Impl"^^xsd:string ;
 .
-
 :NHS360
   rdf:type odata4sparql:Dataset ;
   rdf:type odata4sparql:Prefix ;
