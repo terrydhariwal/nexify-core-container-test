@@ -1,13 +1,19 @@
 # Build based on Tomcat
-FROM tomcat:9.0.11-jre8-alpine
+FROM tomcat:9-jre8
 MAINTAINER Peter Lawrence "peter.lawrence@inova8.com"
 
 # install utilities and update OS
-RUN apk update
-RUN apk add wget
-RUN apk add less
-RUN apk add tree
-RUN apk add nano
+# RUN apk update
+# RUN apk add wget
+# RUN apk add less
+# RUN apk add tree
+# RUN apk add nano
+# RUN apk add curl
+RUN apt-get update -y
+RUN apt-get install wget -y
+RUN apt-get install less -y
+RUN apt-get install tree -y
+RUN apt-get install nano -y
 
 # Setup variables
 ENV RDF4J_DATA="/root/.RDF4J"
