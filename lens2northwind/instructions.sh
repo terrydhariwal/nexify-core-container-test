@@ -50,7 +50,7 @@ docker rm nexify
 docker image rm `docker images | grep nexify | awk -v x=3 '{print $x}'`
 sudo docker build -t nexify/nexify-core:v1 .
 docker run --name nexify -d -p 8080:8080 nexify/nexify-core:v1
-docker logs nexify
+docker logs -f nexify
 
 rm Dockerfile
 nano Dockerfile
