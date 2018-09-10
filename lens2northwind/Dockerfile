@@ -14,21 +14,23 @@ ENV RDF4J_DATA="/root/.RDF4J"
 
 ARG HBASE_VERSION=1.1.2
 #ARG HALYARD_VERSION=1.5
-ARG HALYARD_VERSION=2.0-SNAPSHOT
+#ARG HALYARD_VERSION=2.0-SNAPSHOT
+ARG HALYARD_VERSION=2.0
 
 ENV HALYARD_PREFIX=/opt/halyard-$HALYARD_VERSION
 ENV PATH $HALYARD_PREFIX:$PATH
 
-# Install RDF4J with Halyard webapps
 WORKDIR /tmp
-#RUN wget -t 10 --max-redirect 1 --retry-connrefused https://github.com/Merck/Halyard/releases/download/r$HALYARD_VERSION/halyard-sdk-$HALYARD_VERSION.zip
-RUN wget -t 10 --max-redirect 1 --retry-connrefused https://github.com/Merck/Halyard/releases/download/nightly_build_20180905/halyard-sdk-$HALYARD_VERSION.zip
+
+# Install RDF4J with Halyard webapps
+#RUN wget -t 10 --max-redirect 1 --retry-connrefused https://github.com/Merck/Halyard/releases/download/nightly_build_20180905/halyard-sdk-$HALYARD_VERSION.zip
+RUN wget -t 10 --max-redirect 1 --retry-connrefused https://github.com/Merck/Halyard/releases/download/r$HALYARD_VERSION/halyard-sdk-$HALYARD_VERSION.zip
 
 RUN mkdir -p /opt/halyard-sdk-$HALYARD_VERSION
 RUN unzip -d /opt/halyard-sdk-$HALYARD_VERSION halyard-sdk-$HALYARD_VERSION.zip
 
-#RUN wget https://github.com/Merck/Halyard/releases/download/r$HALYARD_VERSION/halyard-webapps-$HALYARD_VERSION.zip
-RUN wget https://github.com/Merck/Halyard/releases/download/nightly_build_20180905/halyard-webapps-$HALYARD_VERSION.zip
+#RUN wget https://github.com/Merck/Halyard/releases/download/nightly_build_20180905/halyard-webapps-$HALYARD_VERSION.zip
+RUN wget https://github.com/Merck/Halyard/releases/download/r$HALYARD_VERSION/halyard-webapps-$HALYARD_VERSION.zip
 
 RUN mkdir -p /opt/halyard-webapps-$HALYARD_VERSION
 RUN unzip -d /opt/halyard-webapps-$HALYARD_VERSION  halyard-webapps-$HALYARD_VERSION.zip
