@@ -69,6 +69,5 @@ COPY setenv.sh $TOMCAT_HOME/bin/setenv.sh
 RUN echo "CATALINA_OPTS=\"\$CATALINA_OPTS \$JVM_PARAMS -Dorg.eclipse.rdf4j.appdata.basedir=\$RDF4J_DATA\"" >> /usr/local/tomcat/bin/setenv.sh
 COPY hbase-site.xml /opt/hbase/conf/hbase-site.xml
 
-# Publish RDF4J data volumes
-VOLUME ${RDF4J_DATA}
+# Expose 8080
 EXPOSE 8080
