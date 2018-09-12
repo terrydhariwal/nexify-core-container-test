@@ -1,3 +1,5 @@
+
+# CREATE DOCKER HOST
 export my_project=quorum-360-187413
 export my_zone=europe-west1-c
 export my_instance_name=pilot-docker-host-for-halyard2
@@ -40,9 +42,13 @@ sudo groupadd docker #Create the docker group.
 sudo usermod -aG docker $USER #Add your user to the docker group.
 groups $USER
 sudo systemctl enable docker #sudo systemctl disable docker
+# END OF CREATE DOCKER HOST
 
-gsutil cp gs://nexify-test-bucket/com.inova8.docker.zip .
+#gsutil cp gs://nexify-test-bucket/com.inova8.docker.zip .
 
+------------------------------------------------------------------------------------------
+# CREATE AND RUN NEXIFY-CORE IMAGE USING DOCKER
+# cd to directory containing the Dockerfile
 docker stop nexify
 docker rm nexify
 #docker images | grep nexify
@@ -51,69 +57,52 @@ docker image rm `docker images | grep nexify | awk -v x=3 '{print $x}'`
 sudo docker build -t nexify/nexify-core:v1 .
 docker run --name nexify -d -p 8080:8080 nexify/nexify-core:v1
 docker logs -f nexify
+# END OF CREATE AND RUN NEXIFY-CORE IMAGE USING DOCKER
 
-rm Dockerfile
-nano Dockerfile
-
-sudo docker build -t nexify/nexify-core:v1 .
-docker run --name nexify -d -p 8080:8080 nexify/nexify-core:v1
-docker logs nexify
-
+# ssh to docker image
 docker exec -it nexify bash
 
------
-TEMP_PATH=$(echo `/opt/hbase/bin/hbase classpath`)
-export CLASSPATH="$CLASSPATH:$CATALINA_HOME/lib/servlet-api.jar:$TEMP_PATH"
-echo $CLASSPATH
-
-
+------------------------------------------------------------------------------------------
+# commands to get latest WAR - need to be built from source
 curl -L https://github.com/peterjohnlawrence/com.inova8.docker/raw/master/lens2northwind/com.inova8.lens.framework.v4.war -o com.inova8.lens.framework.v4.war
 curl -L https://github.com/peterjohnlawrence/com.inova8.docker/raw/master/lens2northwind/odata2sparql.v4.war  -o odata2sparql.v4.war
+------------------------------------------------------------------------------------------
 
----
-
-ENV without setenv.sh
----------------------
-echo $CATALINA_BASE
-
-echo $CATALINA_HOME
-/usr/local/tomcat
-echo $CATALINA_TMPDIR
-
-echo $JRE_HOME
-
-echo $JAVA_HOME
-/usr
-echo $CLASSPATH
-::/opt/hbase/lib/hbase-server-1.1.2.jar
-echo $TOMCAT_HOME
-/usr/local/tomcat
-
-ENV with setenv.sh
----------------------
-echo $CATALINA_BASE
-
-echo $CATALINA_HOME
-/usr/local/tomcat
-echo $CATALINA_TMPDIR
-
-echo $JRE_HOME
-
-echo $JAVA_HOME
-/usr
-echo $CLASSPATH
-::/opt/hbase/lib/hbase-server-1.1.2.jar
-echo $TOMCAT_HOME
-/usr/local/tomcat
-
-
-----
-
+# Completed task
 Copy Northwind
 Copy NHS (rename to NHSModel)
 Update models.ttl to refer to NHSModel and localhost
 
-docker conatiners to build
+docker containers to build
 ---------------------------
 nexify/stable
 nexify/latestbuild
+
+
+Update Hadoop Master node with LATEST BUILD of Halyard SDK
+----------------------------------------------------------
+sudo su
+export HALYARD_VERSION=2.0-SNAPSHOT
+mkdir -p /opt/halyard-sdk-$HALYARD_VERSION
+cd /opt/halyard-sdk-$HALYARD_VERSION
+wget -t 10 --max-redirect 1 --retry-connrefused https://github.com/Merck/Halyard/releases/download/nightly_build_20180905/halyard-sdk-$HALYARD_VERSION.zip
+unzip halyard-sdk-$HALYARD_VERSION.zip
+rm -f halyard-sdk-$HALYARD_VERSION.zip
+cd /opt
+rm -f /opt/halyard
+ln -s /opt/halyard-sdk-$HALYARD_VERSION /opt/halyard
+ls -la
+
+Update Hadoop Master node with STABLE BUILD of Halyard SDK
+----------------------------------------------------------
+sudo su
+export HALYARD_VERSION=2.0
+mkdir -p /opt/halyard-sdk-$HALYARD_VERSION
+cd /opt/halyard-sdk-$HALYARD_VERSION
+wget -t 10 --max-redirect 1 --retry-connrefused https://github.com/Merck/Halyard/releases/download/r$HALYARD_VERSION/halyard-sdk-$HALYARD_VERSION.zip
+unzip halyard-sdk-$HALYARD_VERSION.zip
+rm -f halyard-sdk-$HALYARD_VERSION.zip
+cd /opt
+rm -f /opt/halyard
+ln -s /opt/halyard-sdk-$HALYARD_VERSION /opt/halyard
+ls -la
