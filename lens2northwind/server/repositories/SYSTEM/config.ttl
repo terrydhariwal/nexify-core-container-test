@@ -1,0 +1,8 @@
+@prefix rep: <http://www.openrdf.org/config/repository#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#SYSTEM> a rep:Repository;
+  rep:repositoryID "SYSTEM";
+  rep:repositoryImpl [
+      rep:repositoryType "openrdf:SystemRepository"
+    ] .
