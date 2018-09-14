@@ -266,8 +266,8 @@ odata4sparql:OUEXT
   odata4sparql:sparqlProfile odata4sparql:RDF4J ;
   rep:repositoryType openrdf:SPARQLRepository ;
   # rep:repositoryType openrdf:SailRepository ;
-  sparql:query-endpoint <http://35.241.184.201:8080/rdf4j-server/repositories/NHSSplit?distinct=true>;
-  sparql:update-endpoint <http://35.241.184.201:8080/rdf4j-server/repositories/NHSSplit> ;
+  sparql:query-endpoint <http://localhost:8080/rdf4j-server/repositories/NHSSplit?distinct=true>;
+  sparql:update-endpoint <http://localhost:8080/rdf4j-server/repositories/NHSSplit> ;
   rdfs:label "NHS Data Impl"^^xsd:string ;
 .
 :NHS_Vocabulary
@@ -341,4 +341,3 @@ odata4sparql:OUEXT
   sparql:update-endpoint1 <http://localhost:8080/rdf4j-server/repositories/NHS360MODEL> ;
   rdfs:label "NHS360 Vocabulary Impl"^^xsd:string ;
 .
-
