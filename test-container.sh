@@ -11,9 +11,14 @@ gcloud container clusters get-credentials ${K8_CLUSTER_NAME} --zone "${COMPUTE_Z
 SERVICE_LOAD_BALANCER=`kubectl get service ${deployment_name} -o=json` #set as variable
 echo ${SERVICE_LOAD_BALANCER} | jq
 #NEED TO HANDLE ARRAY IF IPs here
-SERVICE_LOAD_BALANCER=`echo ${SERVICE_LOAD_BALANCER} | jq -r ".status.loadBalancer.ingress[0].ip"`
+#SERVICE_LOAD_BALANCER=`echo ${SERVICE_LOAD_BALANCER} | jq -r ".status.loadBalancer.ingress[0].ip"`
+#echo ${SERVICE_LOAD_BALANCER} | jq --arg deployment_name "$deployment_name" '.items[] '
+#echo ${SERVICE_LOAD_BALANCER} | jq --arg deployment_name "$deployment_name" '.items[] | select(.metadata.name == "quorum360")'
+#echo ${SERVICE_LOAD_BALANCER} | jq --arg deployment_name "$deployment_name" '.items[] | select(.metadata.name == $deployment_name)'
+#echo ${SERVICE_LOAD_BALANCER} | jq --arg deployment_name "$deployment_name" '.items[] | select(.metadata.name == $deployment_name) | .status.loadBalancer.ingress[].ip'
+SERVICE_LOAD_BALANCER=`echo ${SERVICE_LOAD_BALANCER} | jq --arg deployment_name "$deployment_name" '.items[]  | select(.metadata.name == $deployment_name)| .status.loadBalancer.ingress[].ip'`
 echo ${SERVICE_LOAD_BALANCER}
-
+SERVICE_LOAD_BALANCER=`echo $SERVICE_LOAD_BALANCER | sed -e 's/"//g'`
 echo ${SERVICE_LOAD_BALANCER}
 CONTAINER_PORT=8080
 
