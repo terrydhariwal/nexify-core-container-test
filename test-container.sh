@@ -5,6 +5,9 @@ gcloud config set project ${PROJECT_ID};
 gcloud config set compute/zone ${COMPUTE_ZONE};
 
 export K8_CLUSTER_NAME=test-cluster-2
+export deployment_app=quorum360
+export deployment_name=${deployment_app}
+
 gcloud container clusters get-credentials ${K8_CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
 # get IP address of service load balancer
