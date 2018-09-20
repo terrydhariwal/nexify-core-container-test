@@ -8,7 +8,7 @@ export K8_CLUSTER_NAME=test-cluster-2
 
 
 export cluster_names=`gcloud container clusters list --zone=${COMPUTE_ZONE} --format=json | jq -r ".[].name"`
-echo $cluster_names
+echo "cluster_names = $cluster_names"
 
 if [[ $cluster_names = *"$K8_CLUSTER_NAME"* ]]; then
    echo "Cluster $K8_CLUSTER_NAME already exists!"
@@ -21,9 +21,9 @@ export deployment_app=quorum360
 export deployment_name=${deployment_app}
 
 export current_deployments=`kubectl get deployments -o=json`
-echo $current_deployments | jq -r ".items[].metadata.name"
+#echo $current_deployments | jq -r ".items[].metadata.name"
 current_deployments=`echo $current_deployments | jq -r ".items[].metadata.name"`
-echo $current_deployments
+echo "current_deployments = $current_deployments"
 
 if [[ $current_deployments = *"$deployment_name"* ]]; then
    echo "Deployment ${deployment_name} already exists!"
@@ -35,9 +35,9 @@ fi
 kubectl get po -a
 
 export current_services=`kubectl get service -o=json`
-echo $current_services | jq -r ".items[].metadata.name"
+#echo $current_services | jq -r ".items[].metadata.name"
 current_services=`echo $current_services | jq -r ".items[].metadata.name"`
-echo $current_services
+echo "current_services = $current_services"
 
 if [[ $current_services = *"$deployment_name"* ]]; then
    echo "Service ${deployment_name} already exists!"
@@ -54,12 +54,12 @@ do
   #echo ${SERVICE_LOAD_BALANCER} | jq
   #NEED TO HANDLE ARRAY IF IPs here
   SERVICE_LOAD_BALANCER=`echo ${SERVICE_LOAD_BALANCER} | jq -r ".status.loadBalancer.ingress[0].ip"`
-  echo ${SERVICE_LOAD_BALANCER}
+  #echo ${SERVICE_LOAD_BALANCER}
   if [ $SERVICE_LOAD_BALANCER != "null" ] && [ -n $SERVICE_LOAD_BALANCER ]; then
     get_service_ip=0;
     echo "found_ip";
-  else
-   echo "ip is null";
+  #else
+  # echo "ip is null";
   fi
   sleep 3
 done
