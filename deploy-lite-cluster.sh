@@ -23,7 +23,7 @@ export deployment_name=${deployment_app}
 export current_deployments=`kubectl get deployments -o=json`
 #echo $current_deployments | jq -r ".items[].metadata.name"
 current_deployments=`echo $current_deployments | jq -r ".items[].metadata.name"`
-echo "current_deployments = $current_deployments"
+#echo "current_deployments = $current_deployments"
 
 if [[ $current_deployments = *"$deployment_name"* ]]; then
    echo "Deployment ${deployment_name} already exists!"
@@ -37,7 +37,7 @@ kubectl get po -a
 export current_services=`kubectl get service -o=json`
 #echo $current_services | jq -r ".items[].metadata.name"
 current_services=`echo $current_services | jq -r ".items[].metadata.name"`
-echo "current_services = $current_services"
+#echo "current_services = $current_services"
 
 if [[ $current_services = *"$deployment_name"* ]]; then
    echo "Service ${deployment_name} already exists!"
@@ -67,11 +67,11 @@ echo ${SERVICE_LOAD_BALANCER}
 
 FIREWALL_RULE_NAME=hortonworks-network-ambari-access
 FIREWALL_CONFIG=`gcloud compute firewall-rules describe ${FIREWALL_RULE_NAME} --format=json`
-echo ${FIREWALL_CONFIG} | jq
+#echo ${FIREWALL_CONFIG} | jq
 NEW_FW_RULE=$(echo ${FIREWALL_CONFIG} | jq --arg SERVICE_LOAD_BALANCER "$SERVICE_LOAD_BALANCER" '.sourceRanges += [$SERVICE_LOAD_BALANCER]' )
-echo ${NEW_FW_RULE}
+#echo ${NEW_FW_RULE}
 NEW_SOURCE_RANGE=`echo ${NEW_FW_RULE} | jq -r ".sourceRanges"`
-echo ${NEW_SOURCE_RANGE}
+#echo ${NEW_SOURCE_RANGE}
 
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -re 's/\/32/"/g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -re 's/([0-9])"/\1\/32"/g'`
@@ -88,18 +88,18 @@ gcloud compute firewall-rules update hortonworks-network-ambari-access --source-
 
 # Get POD IP
 POD_IP=`kubectl describe pod quorum360 | grep IP` #set as variable
-echo ${POD_IP}
+#echo ${POD_IP}
 POD_IP=`echo $POD_IP | sed -re 's/ //g'`
 POD_IP=`echo $POD_IP | sed -re 's/IP://g'`
-echo ${POD_IP}
+echo "POD_ID = ${POD_IP}"
 
 FIREWALL_RULE_NAME=hortonworks-network-ambari-access
 FIREWALL_CONFIG=`gcloud compute firewall-rules describe ${FIREWALL_RULE_NAME} --format=json`
-echo ${FIREWALL_CONFIG} | jq
+#echo ${FIREWALL_CONFIG} | jq
 NEW_FW_RULE=$(echo ${FIREWALL_CONFIG} | jq --arg POD_IP "$POD_IP" '.sourceRanges += [$POD_IP]' )
-echo ${NEW_FW_RULE}
+#echo ${NEW_FW_RULE}
 NEW_SOURCE_RANGE=`echo ${NEW_FW_RULE} | jq -r ".sourceRanges"`
-echo ${NEW_SOURCE_RANGE}
+#echo ${NEW_SOURCE_RANGE}
 
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -re 's/\/32/"/g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -re 's/([0-9])"/\1\/32"/g'`
