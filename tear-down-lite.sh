@@ -4,7 +4,7 @@ export COMPUTE_ZONE=europe-west1-b
 gcloud config set project ${PROJECT_ID};
 gcloud config set compute/zone ${COMPUTE_ZONE};
 
-export K8_CLUSTER_NAME=test-cluster-2
+export K8_CLUSTER_NAME=quorum360-lite-cluster
 gcloud container clusters get-credentials ${K8_CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
 POD_IP=`kubectl describe pod ${deployment_name} | grep IP` #set as variable

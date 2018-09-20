@@ -4,7 +4,7 @@ export COMPUTE_ZONE=europe-west1-b
 gcloud config set project ${PROJECT_ID};
 gcloud config set compute/zone ${COMPUTE_ZONE};
 
-export K8_CLUSTER_NAME=test-cluster-2
+export K8_CLUSTER_NAME=quorum360-lite-cluster
 export deployment_app=quorum360
 export deployment_name=${deployment_app}
 
