@@ -111,3 +111,5 @@ NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 gcloud compute firewall-rules update hortonworks-network-ambari-access --source-ranges="${NEW_SOURCE_RANGE}"
 
 # Now you can access rdf4j-workbench and HBase
+
+source ./test-lite-container.sh
