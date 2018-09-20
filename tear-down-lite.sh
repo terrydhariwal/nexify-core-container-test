@@ -8,18 +8,18 @@ export K8_CLUSTER_NAME=test-cluster-2
 gcloud container clusters get-credentials ${K8_CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
 POD_IP=`kubectl describe pod ${deployment_name} | grep IP` #set as variable
-echo ${POD_IP}
+#echo ${POD_IP}
 POD_IP=`echo $POD_IP | sed -re 's/ //g'`
 POD_IP=`echo $POD_IP | sed -re 's/IP://g'`
-echo ${POD_IP}
+#echo ${POD_IP}
 
 FIREWALL_RULE_NAME=hortonworks-network-ambari-access
 FIREWALL_CONFIG=`gcloud compute firewall-rules describe ${FIREWALL_RULE_NAME} --format=json`
-echo ${FIREWALL_CONFIG} | jq
+#echo ${FIREWALL_CONFIG} | jq
 NEW_FW_RULE=$(echo ${FIREWALL_CONFIG} | jq --arg POD_IP "$POD_IP/32" '.sourceRanges -= [$POD_IP]' )
-echo ${NEW_FW_RULE}
+#echo ${NEW_FW_RULE}
 NEW_SOURCE_RANGE=`echo ${NEW_FW_RULE} | jq -r ".sourceRanges"`
-echo ${NEW_SOURCE_RANGE}
+#echo ${NEW_SOURCE_RANGE}
 
 
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -re 's/\/32/"/g'`
@@ -33,17 +33,17 @@ gcloud compute firewall-rules update hortonworks-network-ambari-access --source-
 
 #SERVICE_LOAD_BALANCER=`kubectl get service ${deployment_name} -o=json` #set as variable
 SERVICE_LOAD_BALANCER=`kubectl get service -o=json` #set as variable
-echo ${SERVICE_LOAD_BALANCER} | jq
+#echo ${SERVICE_LOAD_BALANCER} | jq
 SERVICE_LOAD_BALANCER=`echo ${SERVICE_LOAD_BALANCER} | jq -r ".status.loadBalancer.ingress[0].ip"`
-echo ${SERVICE_LOAD_BALANCER}
+#echo ${SERVICE_LOAD_BALANCER}
 
 FIREWALL_RULE_NAME=hortonworks-network-ambari-access
 FIREWALL_CONFIG=`gcloud compute firewall-rules describe ${FIREWALL_RULE_NAME} --format=json`
-echo ${FIREWALL_CONFIG} | jq
+#echo ${FIREWALL_CONFIG} | jq
 NEW_FW_RULE=$(echo ${FIREWALL_CONFIG} | jq --arg SERVICE_LOAD_BALANCER "$SERVICE_LOAD_BALANCER/32" '.sourceRanges -= [$SERVICE_LOAD_BALANCER]' )
-echo ${NEW_FW_RULE}
+#echo ${NEW_FW_RULE}
 NEW_SOURCE_RANGE=`echo ${NEW_FW_RULE} | jq -r ".sourceRanges"`
-echo ${NEW_SOURCE_RANGE}
+#echo ${NEW_SOURCE_RANGE}
 
 
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -re 's/\/32/"/g'`
