@@ -1,18 +1,23 @@
+* Cluster-name
+* Number of worker nodes (default 1)
+* Ram size (default 8GB)
+* image to use
+
+
+# Set Project Settings
 export PROJECT_ID=quorum-360-187413
 export COMPUTE_ZONE=europe-west1-b
-
 gcloud config set project ${PROJECT_ID};
 gcloud config set compute/zone ${COMPUTE_ZONE};
-
 export K8_CLUSTER_NAME=quorum360-lite-cluster
-
-
 export cluster_names=`gcloud container clusters list --zone=${COMPUTE_ZONE} --format=json | jq -r ".[].name"`
-echo "cluster_names = $cluster_names"
+#echo "cluster_names = $cluster_names"
 
+# Create cluster
 if [[ $cluster_names = *"$K8_CLUSTER_NAME"* ]]; then
    echo "Cluster $K8_CLUSTER_NAME already exists!"
 else
+  # define compute to use
   gcloud beta container --project "quorum-360-187413" clusters create "${K8_CLUSTER_NAME}" --zone "${COMPUTE_ZONE}" --username "admin" --cluster-version "1.9.7-gke.6" --machine-type "n1-standard-1" --image-type "COS" --disk-type "pd-standard" --disk-size "100" --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --num-nodes "1" --enable-cloud-logging --enable-cloud-monitoring --network "projects/quorum-360-187413/global/networks/hortonworks-network" --addons HorizontalPodAutoscaling,HttpLoadBalancing,KubernetesDashboard --no-enable-autoupgrade --enable-autorepair
 fi
 
@@ -28,6 +33,7 @@ current_deployments=`echo $current_deployments | jq -r ".items[].metadata.name"`
 if [[ $current_deployments = *"$deployment_name"* ]]; then
    echo "Deployment ${deployment_name} already exists!"
 else
+  # Pass in image to use with a default
   kubectl run ${deployment_name} --image gcr.io/${PROJECT_ID}/quorum360:halyard-v1.5-4gb-ram --port 8080
 fi
 
