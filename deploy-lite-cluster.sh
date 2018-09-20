@@ -113,4 +113,4 @@ gcloud compute firewall-rules update hortonworks-network-ambari-access --source-
 # Now you can access rdf4j-workbench and HBase
 
 current_dir=`pwd`
-source current_dir/test-lite-container.sh
+source $current_dir/test-lite-container.sh
