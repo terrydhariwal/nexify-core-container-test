@@ -1,9 +1,3 @@
-* Cluster-name
-* Number of worker nodes (default 1)
-* Ram size (default 8GB)
-* image to use
-
-
 # Set Project Settings
 export PROJECT_ID=quorum-360-187413
 export COMPUTE_ZONE=europe-west1-b
