@@ -11,8 +11,6 @@ while read line ; do
     line="export $line"
     eval $line
 done < <(python ./set_cluster_node_spec.py) #process subsitution https://stackoverflow.com/questions/4667509/shell-variables-set-inside-while-loop-not-visible-outside-of-it
-echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
-echo "CLUSTER_NODE_CPUS = $CLUSTER_NODE_CPUS"
 export MACHINE_TYPE=custom-${CLUSTER_NODE_CPUS}-${CLUSTER_NODE_RAM}
 export CLUSTER_NAME=quorum360
 export CLUSTER_NUM_NODES=1
