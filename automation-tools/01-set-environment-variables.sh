@@ -24,6 +24,5 @@ while read line ; do
 done < <(python ./set_cluster_node_spec.py) #process subsitution https://stackoverflow.com/questions/4667509/shell-variables-set-inside-while-loop-not-visible-outside-of-it
 
 export MACHINE_TYPE=custom-${CLUSTER_NODE_CPUS}-${CLUSTER_NODE_RAM}
-export CLUSTER_NAME=${APPLICATION_NAME}-${CUSTOMER_NAME}
 export CLUSTER_NUM_NODES=1
-export CLUSTER_NAME=quorum360-${CLUSTER_NODE_CPUS}-cores-${CLUSTER_NODE_RAM}-mb
+export CLUSTER_NAME=${APPLICATION_NAME}-${CUSTOMER_NAME}-${CLUSTER_NODE_CPUS}-cores-${CLUSTER_NODE_RAM}-mb
