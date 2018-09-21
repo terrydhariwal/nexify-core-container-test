@@ -1,3 +1,4 @@
+gcloud components update
 export PROJECT_ID=quorum-360-187413
 export COMPUTE_ZONE=europe-west1-b
 gcloud config set project ${PROJECT_ID};
