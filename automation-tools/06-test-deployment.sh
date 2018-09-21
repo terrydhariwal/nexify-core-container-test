@@ -1,3 +1,6 @@
+# DEPLOYMENT_NAME needs to be passed in - need to be careful to NOT make this a env variable - do avoid deleting by accident
+DEPLOYMENT_NAME=quorum360-4096
+
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
 # get IP address of service load balancer

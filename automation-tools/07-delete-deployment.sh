@@ -1,5 +1,8 @@
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
+# DEPLOYMENT_NAME needs to be passed in - need to be careful to NOT make this a env variable - do avoid deleting by accident
+DEPLOYMENT_NAME=quorum360-4096
+
 # Delete service
 kubectl delete service ${DEPLOYMENT_NAME}
 
