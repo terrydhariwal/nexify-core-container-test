@@ -10,6 +10,7 @@ python ./set_cluster_node_spec.py | while read line ; do
     line=`echo $line | sed -re 's/ //g'`
     echo $line
     eval $line
+    echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
 done
 echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
 echo "CLUSTER_NODE_CPUS = $CLUSTER_NODE_CPUS"
