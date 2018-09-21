@@ -6,14 +6,11 @@ export RAM_OVERHEAD=1024
 export HALYARD_VERSION=1.5
 export HBASE_VERSION=1.1.2
 export IMAGE_NAME=${CONTAINER_BASE_NAME}-java-${JAVA_VERSION}-tomcat-${TOMCAT_VERSION}-${TOMCAT_SIZE}-hbase-${HBASE_VERSION}-halyard-${HALYARD_VERSION}
-python ./set_cluster_node_spec.py | while read line ; do
+while read line ; do
     line=`echo $line | sed -re 's/ //g'`
     line="export $line"
-    echo $line
     eval $line
-    echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
-    echo "CLUSTER_NODE_CPUS = $CLUSTER_NODE_CPUS"
-done
+done < <(python ./set_cluster_node_spec.py) #process subsitution https://stackoverflow.com/questions/4667509/shell-variables-set-inside-while-loop-not-visible-outside-of-it
 echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
 echo "CLUSTER_NODE_CPUS = $CLUSTER_NODE_CPUS"
 export MACHINE_TYPE=custom-${CLUSTER_NODE_CPUS}-${CLUSTER_NODE_RAM}
