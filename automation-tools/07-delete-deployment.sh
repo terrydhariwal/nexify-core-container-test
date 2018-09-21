@@ -1,7 +1,18 @@
-#TODO - need to implement a stage which undeploys the container app w/o tearing down the entire cluster
-
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
+# Delete service
+kubectl delete service ${DEPLOYMENT_NAME}
+
+# TODO
+# get namespace for deployment
+#kubectl get rs --all-namespaces
+#HARD CODED FOR NOW
+DEPLOYMENT_NAMESPACE=default
+kubectl delete deployment ${DEPLOYMENT_NAME} --namespace=${DEPLOYMENT_NAMESPACE}
+#kubectl get pods
+
+#clean up firewall rules
+# internal IP ------------------------------------------------------------------------------------------------------
 POD_IP=`kubectl describe pod ${DEPLOYMENT_NAME} | grep IP` #set as variable
 #echo ${POD_IP}
 POD_IP=`echo $POD_IP | sed -re 's/ //g'`
@@ -26,6 +37,9 @@ NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 gcloud compute firewall-rules update hortonworks-network-ambari-access --source-ranges="${NEW_SOURCE_RANGE}"
 
+# internal IP ------------------------------------------------------------------------------------------------------
+
+# load balancer IP ------------------------------------------------------------------------------------------------------
 #SERVICE_LOAD_BALANCER=`kubectl get service ${deployment_name} -o=json` #set as variable
 SERVICE_LOAD_BALANCER=`kubectl get service -o=json` #set as variable
 #echo ${SERVICE_LOAD_BALANCER} | jq
@@ -49,10 +63,4 @@ NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\[//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 gcloud compute firewall-rules update hortonworks-network-ambari-access --source-ranges="${NEW_SOURCE_RANGE}"
-
-# To avoid incurring charges
-#   1. Delete the application's Service by running kubectl delete:
-kubectl delete service ${DEPLOYMENT_NAME}
-
-#   2. Delete your cluster by running gcloud container clusters delete:
-gcloud container clusters delete ${CLUSTER_NAME} --zone=${COMPUTE_ZONE} --async --quiet
+# load balancer IP ------------------------------------------------------------------------------------------------------
