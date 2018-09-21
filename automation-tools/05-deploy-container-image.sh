@@ -96,4 +96,4 @@ gcloud compute firewall-rules update ${FIREWALL_RULE_NAME} --source-ranges="${NE
 # Now you can access rdf4j-workbench and HBase
 
 CURRENT_DIR=`pwd`
-source $CURRENT_DIR/06-test-container.sh
+source $CURRENT_DIR/06-test-deployment.sh
