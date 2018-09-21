@@ -1,7 +1,7 @@
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
-export DEPLOYMENT_APP=quorum360
+
 # no longer environment variable - to avoid accidental delete in other scripts
-DEPLOYMENT_NAME=${DEPLOYMENT_APP}-${TOMCAT_RAM}
+DEPLOYMENT_NAME=${IMAGE_NAME}-${TOMCAT_RAM}
 
 export CURRENT_DEPLOYMENTS=`kubectl get deployments -o=json`
 #echo $CURRENT_DEPLOYMENTS | jq -r ".items[].metadata.name"
@@ -12,7 +12,7 @@ if [[ $CURRENT_DEPLOYMENTS = *"$DEPLOYMENT_NAME"* ]]; then
    echo "Deployment ${DEPLOYMENT_NAME} already exists!"
 else
   # Pass in image to use with a default
-  kubectl run ${DEPLOYMENT_NAME} --image gcr.io/${PROJECT_ID}/quorum360:${IMAGE_NAME} --port 8080
+  kubectl run ${DEPLOYMENT_NAME} --image ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} --port 8080
 fi
 
 # check if its running as expected
@@ -49,7 +49,7 @@ do
 done
 echo ${SERVICE_LOAD_BALANCER}
 
-FIREWALL_RULE_NAME=hortonworks-network-ambari-access
+
 FIREWALL_CONFIG=`gcloud compute firewall-rules describe ${FIREWALL_RULE_NAME} --format=json`
 #echo ${FIREWALL_CONFIG} | jq
 NEW_FW_RULE=$(echo ${FIREWALL_CONFIG} | jq --arg SERVICE_LOAD_BALANCER "$SERVICE_LOAD_BALANCER" '.sourceRanges += [$SERVICE_LOAD_BALANCER]' )
@@ -64,7 +64,7 @@ NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/"//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\[//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
-gcloud compute firewall-rules update hortonworks-network-ambari-access --source-ranges="${NEW_SOURCE_RANGE}"
+gcloud compute firewall-rules update ${FIREWALL_RULE_NAME} --source-ranges="${NEW_SOURCE_RANGE}"
 
 # Now you can access rdf4j-workbench
 # however the container can't access HBase (since the LB is for ingress traffic only)
@@ -77,7 +77,6 @@ POD_IP=`echo $POD_IP | sed -re 's/ //g'`
 POD_IP=`echo $POD_IP | sed -re 's/IP://g'`
 echo "POD_ID = ${POD_IP}"
 
-FIREWALL_RULE_NAME=hortonworks-network-ambari-access
 FIREWALL_CONFIG=`gcloud compute firewall-rules describe ${FIREWALL_RULE_NAME} --format=json`
 #echo ${FIREWALL_CONFIG} | jq
 NEW_FW_RULE=$(echo ${FIREWALL_CONFIG} | jq --arg POD_IP "$POD_IP" '.sourceRanges += [$POD_IP]' )
@@ -92,7 +91,7 @@ NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/"//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\[//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
-gcloud compute firewall-rules update hortonworks-network-ambari-access --source-ranges="${NEW_SOURCE_RANGE}"
+gcloud compute firewall-rules update ${FIREWALL_RULE_NAME} --source-ranges="${NEW_SOURCE_RANGE}"
 
 # Now you can access rdf4j-workbench and HBase
 

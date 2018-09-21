@@ -1,7 +1,7 @@
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
-# DEPLOYMENT_NAME needs to be passed in - need to be careful to NOT make this a env variable - do avoid deleting by accident
-DEPLOYMENT_NAME=quorum360-4096
+# TODO - DEPLOYMENT_NAME needs to be passed in - need to be careful to NOT make this a env variable - do avoid deleting by accident
+DEPLOYMENT_NAME=${IMAGE_NAME}-${TOMCAT_RAM}
 
 # Delete service
 kubectl delete service ${DEPLOYMENT_NAME}
@@ -22,7 +22,6 @@ POD_IP=`echo $POD_IP | sed -re 's/ //g'`
 POD_IP=`echo $POD_IP | sed -re 's/IP://g'`
 #echo ${POD_IP}
 
-FIREWALL_RULE_NAME=hortonworks-network-ambari-access
 FIREWALL_CONFIG=`gcloud compute firewall-rules describe ${FIREWALL_RULE_NAME} --format=json`
 #echo ${FIREWALL_CONFIG} | jq
 NEW_FW_RULE=$(echo ${FIREWALL_CONFIG} | jq --arg POD_IP "$POD_IP/32" '.sourceRanges -= [$POD_IP]' )
@@ -38,7 +37,7 @@ NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/"//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\[//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
-gcloud compute firewall-rules update hortonworks-network-ambari-access --source-ranges="${NEW_SOURCE_RANGE}"
+gcloud compute firewall-rules update ${FIREWALL_RULE_NAME} --source-ranges="${NEW_SOURCE_RANGE}"
 
 # internal IP ------------------------------------------------------------------------------------------------------
 
@@ -49,7 +48,6 @@ SERVICE_LOAD_BALANCER=`kubectl get service -o=json` #set as variable
 SERVICE_LOAD_BALANCER=`echo ${SERVICE_LOAD_BALANCER} | jq -r ".status.loadBalancer.ingress[0].ip"`
 #echo ${SERVICE_LOAD_BALANCER}
 
-FIREWALL_RULE_NAME=hortonworks-network-ambari-access
 FIREWALL_CONFIG=`gcloud compute firewall-rules describe ${FIREWALL_RULE_NAME} --format=json`
 #echo ${FIREWALL_CONFIG} | jq
 NEW_FW_RULE=$(echo ${FIREWALL_CONFIG} | jq --arg SERVICE_LOAD_BALANCER "$SERVICE_LOAD_BALANCER/32" '.sourceRanges -= [$SERVICE_LOAD_BALANCER]' )
@@ -65,5 +63,5 @@ NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/"//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\[//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
 NEW_SOURCE_RANGE=`echo $NEW_SOURCE_RANGE | sed -e 's/\]//g'`
-gcloud compute firewall-rules update hortonworks-network-ambari-access --source-ranges="${NEW_SOURCE_RANGE}"
+gcloud compute firewall-rules update ${FIREWALL_RULE_NAME} --source-ranges="${NEW_SOURCE_RANGE}"
 # load balancer IP ------------------------------------------------------------------------------------------------------
