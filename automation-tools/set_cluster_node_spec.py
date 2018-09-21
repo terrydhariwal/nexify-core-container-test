@@ -9,7 +9,10 @@ cluster_node_ram = (cluster_node_ram + ram_overhead) * multipler_for_multiple_po
 # os.putenv('CLUSTER_NODE_RAM', str(cluster_node_ram))
 print "CLUSTER_NODE_RAM=",cluster_node_ram
 
-number_of_cores = cluster_node_ram % 1024
+if cluster_node_ram % 1024:
+    number_of_cores = (cluster_node_ram / 1024) + 1
+else:
+    number_of_cores = cluster_node_ram / 1024
 # not possible to change the environment variables of parent processes!
 # os.environ['CLUSTER_NODE_CPUS'] = str(number_of_cores)
 # os.putenv('CLUSTER_NODE_CPUS', str(number_of_cores))
