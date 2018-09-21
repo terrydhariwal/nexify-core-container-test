@@ -6,8 +6,9 @@ export RAM_OVERHEAD=1024
 export HALYARD_VERSION=1.5
 export HBASE_VERSION=1.1.2
 export IMAGE_NAME=${CONTAINER_BASE_NAME}-java-${JAVA_VERSION}-tomcat-${TOMCAT_VERSION}-${TOMCAT_SIZE}-hbase-${HBASE_VERSION}-halyard-${HALYARD_VERSION}
-export CLUSTER_NODE_RAM=`python ./set_cluster_node_ram.py`
-export CLUSTER_NODE_CPUS=1
+python ./set_cluster_node_spec.py
+echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
+echo "CLUSTER_NODE_CPUS = $CLUSTER_NODE_CPUS"
 export MACHINE_TYPE=custom-${CLUSTER_NODE_CPUS}-${CLUSTER_NODE_RAM}
 export CLUSTER_NAME=quorum360
 export CLUSTER_NUM_NODES=1
