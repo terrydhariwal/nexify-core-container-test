@@ -41,8 +41,8 @@ ADD  tomcat/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 ADD  tomcat/context.xml  /usr/local/tomcat/webapps/manager/META-INF/context.xml
 
 # Install odata2sparql and its configuration file (models.ttl)
-ADD  halyard/war/odata2sparql.v4.war  /usr/local/tomcat/webapps/odata2sparql.war
-ADD  halyard/war/com.inova8.lens.framework.v4.war  /usr/local/tomcat/webapps/lens2odata.war
+ADD  tomcat/war/odata2sparql.v4.war  /usr/local/tomcat/webapps/odata2sparql.war
+ADD  tomcat/war/com.inova8.lens.framework.v4.war  /usr/local/tomcat/webapps/lens2odata.war
 ADD  halyard/models.ttl /var/opt/inova8/odata2sparql/V4/
 
 RUN mkdir -p $RDF4J_DATA
