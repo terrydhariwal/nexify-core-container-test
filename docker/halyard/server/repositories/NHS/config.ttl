@@ -1,0 +1,21 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rep: <http://www.openrdf.org/config/repository#> .
+@prefix sail: <http://www.openrdf.org/config/sail#> .
+@prefix sr: <http://www.openrdf.org/config/repository/sail#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#NHS> a rep:Repository;
+  rep:repositoryID "NHS";
+  rep:repositoryImpl [
+      rep:repositoryType "openrdf:SailRepository";
+      sr:sailImpl [
+          <http://merck.github.io/Halyard/ns#createTable> true;
+          <http://merck.github.io/Halyard/ns#elasticIndexURL> "http://pilot-docker-host-for-halyard:9200/nhs";
+          <http://merck.github.io/Halyard/ns#evaluationTimeout> "30"^^xsd:int;
+          <http://merck.github.io/Halyard/ns#pushStrategy> false;
+          <http://merck.github.io/Halyard/ns#splitBits> "0"^^xsd:int;
+          <http://merck.github.io/Halyard/ns#tableName> "NHS";
+          sail:sailType "openrdf:HBaseStore"
+        ]
+    ];
+  rdfs:label "NHS" .

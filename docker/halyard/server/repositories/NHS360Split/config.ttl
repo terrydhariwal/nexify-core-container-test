@@ -1,0 +1,21 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rep: <http://www.openrdf.org/config/repository#> .
+@prefix sail: <http://www.openrdf.org/config/sail#> .
+@prefix sr: <http://www.openrdf.org/config/repository/sail#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#NHS360Split> a rep:Repository;
+  rep:repositoryID "NHS360Split";
+  rep:repositoryImpl [
+      rep:repositoryType "openrdf:SailRepository";
+      sr:sailImpl [
+          <http://merck.github.io/Halyard/ns#createTable> true;
+          <http://merck.github.io/Halyard/ns#elasticIndexURL> "http://pilot-docker-host-for-halyard:9200/nhs360split";
+          <http://merck.github.io/Halyard/ns#evaluationTimeout> "3600"^^xsd:int;
+          <http://merck.github.io/Halyard/ns#pushStrategy> false;
+          <http://merck.github.io/Halyard/ns#splitBits> "0"^^xsd:int;
+          <http://merck.github.io/Halyard/ns#tableName> "NHS360Split";
+          sail:sailType "openrdf:HBaseStore"
+        ]
+    ];
+  rdfs:label "NHS360Split" .
