@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export CUSTOMER_NAME=nexify
+export APPLICATION_NAME=quorum360
 export PROJECT_ID=quorum-360-187413
 export COMPUTE_ZONE=europe-west1-b
 export CONTAINER_BASE_NAME=quorum360
@@ -22,6 +24,6 @@ while read line ; do
 done < <(python ./set_cluster_node_spec.py) #process subsitution https://stackoverflow.com/questions/4667509/shell-variables-set-inside-while-loop-not-visible-outside-of-it
 
 export MACHINE_TYPE=custom-${CLUSTER_NODE_CPUS}-${CLUSTER_NODE_RAM}
-export CLUSTER_NAME=quorum360
+export CLUSTER_NAME=${APPLICATION_NAME}-${CUSTOMER_NAME}
 export CLUSTER_NUM_NODES=1
 export CLUSTER_NAME=quorum360-${CLUSTER_NODE_CPUS}-cores-${CLUSTER_NODE_RAM}-mb
