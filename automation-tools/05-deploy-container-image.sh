@@ -1,3 +1,5 @@
+#!/bin/sh
+
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
 # no longer environment variable - to avoid accidental delete in other scripts

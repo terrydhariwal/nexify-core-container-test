@@ -1,3 +1,5 @@
+#!/bin/sh
+
 export cluster_names=`gcloud container clusters list --zone=${COMPUTE_ZONE} --format=json | jq -r ".[].name"`
 
 # Create cluster

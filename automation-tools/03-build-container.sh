@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # need to call scripts using source - since this works to set environment variables
 # CURRENT_DIR=$(dirname $0) # does not work with source ./this-script
 # when using source we need to use pwd

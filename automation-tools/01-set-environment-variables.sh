@@ -1,3 +1,5 @@
+#!/bin/sh
+
 export PROJECT_ID=quorum-360-187413
 export COMPUTE_ZONE=europe-west1-b
 export CONTAINER_BASE_NAME=quorum360

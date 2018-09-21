@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # DEPLOYMENT_NAME needs to be passed in - need to be careful to NOT make this a env variable - do avoid deleting by accident
 DEPLOYMENT_NAME=${IMAGE_NAME}-${TOMCAT_RAM}
 
