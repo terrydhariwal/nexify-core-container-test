@@ -1,14 +1,9 @@
-export PROJECT_ID=quorum-360-187413
-export COMPUTE_ZONE=europe-west1-b
+#!/bin/sh
 
-gcloud config set project ${PROJECT_ID};
-gcloud config set compute/zone ${COMPUTE_ZONE};
+# DEPLOYMENT_NAME needs to be passed in - need to be careful to NOT make this a env variable - do avoid deleting by accident
+DEPLOYMENT_NAME=${APPLICATION_DEPLOYMENT_NAME}
 
-export K8_CLUSTER_NAME=quorum360-lite-cluster
-export deployment_app=quorum360
-export deployment_name=${deployment_app}
-
-gcloud container clusters get-credentials ${K8_CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
+gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
 # get IP address of service load balancer
 #SERVICE_LOAD_BALANCER=`kubectl get service ${deployment_name} -o=json` #set as variable
@@ -16,7 +11,7 @@ SERVICE_LOAD_BALANCER=`kubectl get service -o=json` #get all load balacners
 #echo ${SERVICE_LOAD_BALANCER} | jq
 #NEED TO HANDLE ARRAY OF IPs here
 # from the various list of load balancers, find the one matchuing our deployment_name, and get its IP
-SERVICE_LOAD_BALANCER=`echo ${SERVICE_LOAD_BALANCER} | jq --arg deployment_name "$deployment_name" '.items[]  | select(.metadata.name == $deployment_name)| .status.loadBalancer.ingress[].ip'`
+SERVICE_LOAD_BALANCER=`echo ${SERVICE_LOAD_BALANCER} | jq --arg deployment_name "$DEPLOYMENT_NAME" '.items[]  | select(.metadata.name == $deployment_name)| .status.loadBalancer.ingress[].ip'`
 #echo ${SERVICE_LOAD_BALANCER}
 
 #Strip off ""
