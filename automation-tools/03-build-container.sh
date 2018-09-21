@@ -13,7 +13,7 @@ if [[ $IMAGE_TAGS = *"$IMAGE_TAG"* ]]; then
 else
   CURRENT_DIR=`pwd`
   echo ${CURRENT_DIR}
-  cd ${CURRENT_DIR}/../container-build/docker/
+  cd ${CURRENT_DIR}/../container-build/
   pwd
   gcloud builds submit --tag ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
   cd ${CURRENT_DIR}
