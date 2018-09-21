@@ -13,7 +13,7 @@ if cluster_node_ram % 1024:
     number_of_cores = (cluster_node_ram / 1024)
     print "number_of_cores=",number_of_cores
 else:
-    number_of_cores = (cluster_node_ram / 1024) + 1
+    number_of_cores = (cluster_node_ram / 1024) - 1
     print "number_of_cores=",number_of_cores
 # not possible to change the environment variables of parent processes!
 # os.environ['CLUSTER_NODE_CPUS'] = str(number_of_cores)
