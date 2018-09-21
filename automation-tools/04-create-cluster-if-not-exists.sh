@@ -1,5 +1,4 @@
 export cluster_names=`gcloud container clusters list --zone=${COMPUTE_ZONE} --format=json | jq -r ".[].name"`
-#echo "cluster_names = $cluster_names"
 
 # Create cluster
 if [[ $cluster_names = *"$CLUSTER_NAME"* ]]; then
