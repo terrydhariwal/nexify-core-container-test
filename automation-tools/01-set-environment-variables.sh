@@ -7,12 +7,7 @@ export HALYARD_VERSION=1.5
 export HBASE_VERSION=1.1.2
 export IMAGE_NAME=${CONTAINER_BASE_NAME}-java-${JAVA_VERSION}-tomcat-${TOMCAT_VERSION}-${TOMCAT_SIZE}-hbase-${HBASE_VERSION}-halyard-${HALYARD_VERSION}
 python ./set_cluster_node_spec.py | while read line ; do
-    echo $line;
-    if [[ $line = $CLUSTER_NODE_RAM ]]; then
-        export CLUSTER_NODE_RAM=$linel
-    elif [[ $line = $CLUSTER_NODE_CPUS ]]; then
-        export CLUSTER_NODE_CPUS=$line;
-    fi
+    echo `$line`;
 done
 echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
 echo "CLUSTER_NODE_CPUS = $CLUSTER_NODE_CPUS"
