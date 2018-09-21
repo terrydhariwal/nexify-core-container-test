@@ -9,7 +9,7 @@ export IMAGE_NAME=${CONTAINER_BASE_NAME}-java-${JAVA_VERSION}-tomcat-${TOMCAT_VE
 python ./set_cluster_node_spec.py | while read line ; do
     line=`echo $line | sed -re 's/ //g'`
     echo "$line"
-    eval `$line`
+    eval $line
 done
 echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
 echo "CLUSTER_NODE_CPUS = $CLUSTER_NODE_CPUS"
