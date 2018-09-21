@@ -8,7 +8,7 @@ export HBASE_VERSION=1.1.2
 export IMAGE_NAME=${CONTAINER_BASE_NAME}-java-${JAVA_VERSION}-tomcat-${TOMCAT_VERSION}-${TOMCAT_SIZE}-hbase-${HBASE_VERSION}-halyard-${HALYARD_VERSION}
 python ./set_cluster_node_spec.py | while read line ; do
     line=`echo $line | sed -re 's/ //g'`
-    line=echo "export $line"
+    echo "$line"
     eval `$line`
 done
 echo "CLUSTER_NODE_RAM = $CLUSTER_NODE_RAM"
