@@ -1,0 +1,11 @@
+export container_base_name=quorum360
+export tomcat_version=9.0.12
+export java_version=1.8.0_181
+export tomcat_ram=4096
+export percent_to_raise=20
+export halyard_version=1.5
+export hbase_version=1.1.2
+export image_name=${container_base_name}-java-${java_version}-tomcat-${tomcat_version}-${tomcat_size}-hbase-${hbase_version}-halyard-${halyard_version}
+export cluster_node_ram=`python ./set_cluster_node_ram.py`
+export cluster_name=quorum360
+export cluster_num_nodes=1
