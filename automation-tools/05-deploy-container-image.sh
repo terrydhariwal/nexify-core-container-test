@@ -1,7 +1,6 @@
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
-#export DEPLOYMENT_APP=quorum360
-export DEPLOYMENT_APP=${IMAGE_NAME}
-export DEPLOYMENT_NAME=${DEPLOYMENT_APP}
+export DEPLOYMENT_APP=quorum360
+export DEPLOYMENT_NAME=${DEPLOYMENT_APP}-${TOMCAT_RAM}
 
 export CURRENT_DEPLOYMENTS=`kubectl get deployments -o=json`
 #echo $CURRENT_DEPLOYMENTS | jq -r ".items[].metadata.name"
