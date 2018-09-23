@@ -1,8 +1,5 @@
 #!/bin/sh
 
-source 01-set-environment-variables.sh
-source 02-set-gcloud.sh
-
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
 # TODO - DEPLOYMENT_NAME needs to be passed in - need to be careful to NOT make this a env variable - do avoid deleting by accident
