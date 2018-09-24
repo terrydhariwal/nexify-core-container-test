@@ -16,8 +16,10 @@ else
   cd ${CURRENT_DIR}/../docker/
   pwd
   echo "HALYARD_VERSION=${HALYARD_VERSION}"
+  # gcloud builds submit --tag ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
   #docker build --build-arg HALYARD_VERSION=${HALYARD_VERSION}
   #https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values
-  gcloud builds submit --substitutions=_HALYARD_VERSION=${HALYARD_VERSION} --tag ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
+  gcloud builds submit --config=cloudbuild.yaml \
+    --substitutions=_HALYARD_VERSION=${HALYARD_VERSION} --tag ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
   cd ${CURRENT_DIR}
 fi
