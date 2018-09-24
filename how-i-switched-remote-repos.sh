@@ -1,9 +1,19 @@
+#created new repo in google called quorum360
+
+
 #https://gist.github.com/niksumeiko/8972566
 #cloned from github using https:
 git clone https://github.com/terrydhariwal/quorum360.git
 cd quorum360
 
-#created new repo in google called quorum360
+
+# View all "old repo" local and remote branches:
+git branch -a
+
+# If some of the remotes/ branches doesn't have a local copy,
+# checkout to create a local copy of the missing ones:
+git checkout -b <branch> origin/<branch>
+
 
 # set remote using this command
 $ git remote add google \
