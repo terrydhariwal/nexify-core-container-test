@@ -3,11 +3,11 @@ FROM tomcat:9-jre8
 MAINTAINER Peter Lawrence "peter.lawrence@inova8.com"
 
 # install utilities and update OS
-RUN apt-get update -y
-RUN apt-get install -y \
-    less \
-    tree \
-    nano
+# RUN apt-get update -y
+# RUN apt-get install -y \
+#     less \
+#     tree \
+#     nano
 
 # Setup variables
 ENV RDF4J_DATA="/root/.RDF4J"
