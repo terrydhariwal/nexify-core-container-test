@@ -17,6 +17,6 @@ else
   pwd
   echo "HALYARD_VERSION=${HALYARD_VERSION}"
   #docker build --build-arg HALYARD_VERSION=${HALYARD_VERSION}
-  gcloud builds submit --build-arg HALYARD_VERSION=${HALYARD_VERSION} --tag ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
+  gcloud builds submit --substitutions=HALYARD_VERSION=${HALYARD_VERSION} --tag ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
   cd ${CURRENT_DIR}
 fi
