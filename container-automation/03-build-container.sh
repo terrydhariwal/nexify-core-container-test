@@ -18,8 +18,8 @@ else
   echo "HALYARD_VERSION=${HALYARD_VERSION}"
   #gcloud builds submit --tag ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
   docker build --build-arg HALYARD_VERSION=${HALYARD_VERSION} --tag ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
-  echo "docker push ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} ."
-  docker push ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG} .
+  echo "docker push ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG}"
+  docker push ${CONTAINER_REGISTRY}/${PROJECT_ID}/${IMAGE_NAME}:${IMAGE_TAG}
   #https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values
   #gcloud builds submit --config=$(pwd)/cloudbuild.yaml .
   #gcloud builds submit --config=$(pwd)/cloudbuild.yaml --substitutions=_HALYARD_VERSION=${HALYARD_VERSION} .
