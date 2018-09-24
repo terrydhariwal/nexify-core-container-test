@@ -22,7 +22,7 @@ ENV PATH $HALYARD_PREFIX:$PATH
 
 WORKDIR /tmp
 
-RUN echo "Oh dang look at that $_HALYARD_VERSION"
+RUN echo "Oh dang look at that ${_HALYARD_VERSION}"
 
 # Install RDF4J with Halyard webapps
 #RUN wget -t 10 --max-redirect 1 --retry-connrefused https://github.com/Merck/Halyard/releases/download/nightly_build_20180905/halyard-sdk-$_HALYARD_VERSION.zip
