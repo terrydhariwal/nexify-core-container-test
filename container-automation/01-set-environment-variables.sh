@@ -80,10 +80,10 @@ while [ "$1" != "" ]; do
                                    export HALYARD_VERSION=$1
                                    ;;
         -h | --help )              usage
-                                   #exit
+                                   #exit #TODO - do I need this?
                                    ;;
         * )                        usage
-                                   #exit 1
+                                   #exit 1 - do I need this?
     esac
     shift
 done
