@@ -4,10 +4,10 @@ MAINTAINER Peter Lawrence "peter.lawrence@inova8.com"
 
 # install utilities and update OS
 RUN apt-get update -y
-RUN apt-get install wget -y
-RUN apt-get install less -y
-RUN apt-get install tree -y
-RUN apt-get install nano -y
+RUN apt-get install -y \
+    less \
+    tree \
+    nano
 
 # Setup variables
 ENV RDF4J_DATA="/root/.RDF4J"

@@ -1,7 +1,8 @@
 #!/bin/sh
 
-source 01-set-environment-variables.sh
-source 02-set-gcloud.sh
+# TODO - print env variables set in 01-set-environment-variables.#!/bin/sh
+# and prompt user if they are sure deletion is ok
+# use --quiet to force deletion w/o prompt
 
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone "${COMPUTE_ZONE}"
 
