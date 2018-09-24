@@ -13,7 +13,7 @@ MAINTAINER Peter Lawrence "peter.lawrence@inova8.com"
 ENV RDF4J_DATA="/root/.RDF4J"
 
 ARG HBASE_VERSION=1.1.2
-ARG HALYARD_VERSION=1.5 #in cloudbuild.yaml
+#ARG HALYARD_VERSION=1.5 #in cloudbuild.yaml
 #ARG HALYARD_VERSION=2.0-SNAPSHOT
 #ARG HALYARD_VERSION=2.0
 
