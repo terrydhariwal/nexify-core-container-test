@@ -4,10 +4,10 @@ steps:
          '--build-arg',
          'HALYARD_VERSION=${_HALYARD_VERSION}',
          '-t',
-         'gcr.io/$PROJECT_ID/quorum360-${HALYARD_VERSION}',
+         'gcr.io/$PROJECT_ID/quorum360-${_HALYARD_VERSION}',
          '.']
 substitutions:
     _HALYARD_VERSION: '1.5' # default value
 images: [
-    'gcr.io/$PROJECT_ID/quorum360-${HALYARD_VERSION}'
+    'gcr.io/$PROJECT_ID/quorum360-${_HALYARD_VERSION}'
 ]
