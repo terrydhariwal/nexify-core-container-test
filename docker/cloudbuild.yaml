@@ -5,7 +5,5 @@ steps:
   - '--build-arg=HALYARD_VERSION=1.5'
   - '-t=gcr.io/$PROJECT_ID/quorum360-1.5'
   - '.'
-substitutions:
-  _HALYARD_VERSION: '1.5' # default value
 images:
-  - 'gcr.io/$PROJECT_ID/quorum360-1.5'
+  - 'gcr.io/$PROJECT_ID/quorum360-1.5 '
