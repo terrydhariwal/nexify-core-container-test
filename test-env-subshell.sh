@@ -15,21 +15,21 @@ run-01-set-environment-variables() {
   echo "HALYARD_VERSION=${HALYARD_VERSION}"
 }
 
-while [ "$1" != "" ]; do
-    case $1 in
-        --customer-name )          shift
-                                   export CUSTOMER_NAME=$1
-                                   ;;
-        --halyard-version )        shift
-                                   export HALYARD_VERSION=$1
-                                   ;;
-        -h | --help )              usage
-                                   exit
-                                   ;;
-        * )                        usage
-                                   exit 1
-    esac
-    shift
-done
+# while [ "$1" != "" ]; do
+#     case $1 in
+#         --customer-name )          shift
+#                                    source ./01-set-environment-variables.sh
+#                                    ;;
+#         --halyard-version )        shift
+#                                    source ./01-set-environment-variables.sh
+#                                    ;;
+#         -h | --help )              usage
+#                                    exit
+#                                    ;;
+#         * )                        usage
+#                                    exit 1
+#     esac
+#     shift
+# done
 
 run-01-set-environment-variables
