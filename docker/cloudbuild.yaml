@@ -7,7 +7,7 @@ steps:
          'gcr.io/$PROJECT_ID/quorum360-${_HALYARD_VERSION}',
          '.']
 substitutions:
-    HALYARD_VERSION: 1.5 # default value
+    HALYARD_VERSION: '1.5' # default value
 images: [
     'gcr.io/$PROJECT_ID/quorum360-${_HALYARD_VERSION}'
 ]
