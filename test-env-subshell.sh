@@ -32,4 +32,4 @@ while [ "$1" != "" ]; do
     shift
 done
 
-run-01-set-environment-variables()
+run-01-set-environment-variables
