@@ -1,9 +1,10 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: - 'build'
-        - '--build-arg=HALYARD_VERSION=${_HALYARD_VERSION}'
-        - '-t=gcr.io/$PROJECT_ID/quorum360-${_HALYARD_VERSION}'
-        - '.'
+  args:
+  - 'build'
+  - '--build-arg=HALYARD_VERSION=${_HALYARD_VERSION}'
+  - '-t=gcr.io/$PROJECT_ID/quorum360-${_HALYARD_VERSION}'
+  - '.'
 substitutions:
   _HALYARD_VERSION: '1.5' # default value
 images:
